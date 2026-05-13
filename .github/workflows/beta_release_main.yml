@@ -378,7 +378,7 @@ jobs:
       run: |
         echo "Don't upload SingTun binaries to GitHub Release for they are not stable."
         rm -f release/v2raya_with_singtun_*
-        Latest_Releases=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/v2rayA/v2rayA/releases/latest | jq -r '.tag_name')
+        Latest_Releases=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/guangshanhl/freedy/releases/latest | jq -r '.tag_name')
         Latest_tag=v${{ steps.prep.outputs.VERSION }}
         if [ "$Latest_Releases" != "$Latest_tag" ]; then
           gh release create "v${{ steps.prep.outputs.VERSION }}" -t "v${{ steps.prep.outputs.VERSION }}" --generate-notes --prerelease
