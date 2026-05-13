@@ -381,35 +381,30 @@ jobs:
         Move-Item ./web.zip ./release/web.zip
         Move-Item ./web.zip.sha256.txt ./release/web.zip.sha256.txt
     - name: Upload Release
+	  env:
+	    GH_TOKEN: ${{ github.token }}
 	  shell: bash
-      env:
-        GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
-      run: |
-        set -e
+	  run: |
+      echo "Don't upload SingTun binaries to GitHub Release for they are not stable."
 
-        echo "Don't upload SingTun binaries to GitHub Release for they are not stable."
+      rm -f release/v2raya_with_singtun_*
 
-        rm -f release/v2raya_with_singtun_*
+      TAG="v${{ steps.prep.outputs.VERSION }}"
 
-        TAG="v${{ steps.prep.outputs.VERSION }}"
+      echo "Checking release: $TAG"
 
-        echo "Current repo: $GITHUB_REPOSITORY"
-        echo "Release tag: $TAG"
+      if gh release view "$TAG" >/dev/null 2>&1; then
+        echo "Release already exists."
+      else
+        echo "Creating release..."
+        gh release create "$TAG" \
+        -t "$TAG" \
+        --generate-notes \
+        --prerelease
+     fi
 
-        gh auth status
-
-        if gh release view "$TAG" >/dev/null 2>&1; then
-          echo "Release already exists."
-        else
-          echo "Creating release..."
-          gh release create "$TAG" \
-          --title "$TAG" \
-          --generate-notes
-        fi
-
-        echo "Uploading assets..."
-        gh release upload "$TAG" release/* --clobber
-
+     echo "Uploading assets..."
+     gh release upload "$TAG" release/* --clobber
         echo "Release uploaded successfully."
     - name: Refresh Cloudflare Cache
       env:
