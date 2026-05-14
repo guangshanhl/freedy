@@ -170,9 +170,7 @@ func (t *Trojan) Configuration(info PriorInfo) (c Configuration, err error) {
 		case "ws":
 			core.StreamSettings.WsSettings = &coreObj.WsSettings{
 				Path: t.Path,
-				Headers: coreObj.Headers{
-					Host: t.Host,
-				},
+				Host: t.Host,
 			}
 		case "mkcp", "kcp":
 			core.StreamSettings.KcpSettings = &coreObj.KcpSettings{

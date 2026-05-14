@@ -294,9 +294,7 @@ func (v *V2Ray) Configuration(info PriorInfo) (c Configuration, err error) {
 		case "ws":
 			core.StreamSettings.WsSettings = &coreObj.WsSettings{
 				Path: v.Path,
-				Headers: coreObj.Headers{
-					Host: v.Host,
-				},
+				Host: v.Host,
 			}
 		case "mkcp", "kcp":
 			core.StreamSettings.KcpSettings = &coreObj.KcpSettings{

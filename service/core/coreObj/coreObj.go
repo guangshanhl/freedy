@@ -134,11 +134,12 @@ type Certificate struct {
 	KeyFile         string `json:"keyFile"`
 }
 type Headers struct {
-	Host string `json:"Host"`
+	Host string `json:"Host,omitempty"`
 }
 type WsSettings struct {
-	Path    string  `json:"path"`
-	Headers Headers `json:"headers"`
+	Path    string   `json:"path"`
+	Host    string   `json:"host,omitempty"`
+	Headers *Headers `json:"headers,omitempty"`
 }
 type StreamSettings struct {
 	Network         string           `json:"network,omitempty"`

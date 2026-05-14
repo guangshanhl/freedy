@@ -170,9 +170,7 @@ func (s *Shadowsocks) ConfigurationMC(info PriorInfo) (c Configuration, err erro
 			streamSettings.Network = "ws"
 			streamSettings.WsSettings = &coreObj.WsSettings{
 				Path: path,
-				Headers: coreObj.Headers{
-					Host: host,
-				},
+				Host: host,
 			}
 		}
 		extraOutbounds = append(extraOutbounds, coreObj.OutboundObject{
@@ -301,9 +299,7 @@ func (s *Shadowsocks) ConfigurationMT(info PriorInfo) (c Configuration, err erro
 			v2StreamSettings.Network = "ws"
 			v2StreamSettings.WsSettings = &coreObj.WsSettings{
 				Path: path,
-				Headers: coreObj.Headers{
-					Host: host,
-				},
+				Host: host,
 			}
 		}
 	case "":
